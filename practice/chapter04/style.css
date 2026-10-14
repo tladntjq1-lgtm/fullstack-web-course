@@ -1,0 +1,56 @@
+/* body의 글자색과 글꼴은 자식 요소에 상속됩니다. */
+body {
+  color: #334155;
+  background-color: #f8fafc;
+  font-family: Arial, sans-serif;
+  margin: 24px;
+}
+
+/* header 안의 자식 요소는 흰 글자색을 상속받습니다. */
+header {
+  background-color: #1e293b;
+  color: white;
+  padding: 16px;
+}
+
+/* 제목 크기, 굵기, 정렬을 지정합니다. */
+header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 회원 카드에 흰 배경과 여백을 적용합니다. */
+.member-card {
+  background-color: white;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid lightgray;
+}
+
+/* 문단의 줄 간격을 지정합니다. */
+p {
+  line-height: 1.6;
+}
+
+/* 가입 폼의 배경과 여백을 지정합니다. */
+#signup-form {
+  background-color: #f8fafc;
+  padding: 16px;
+  border: 1px solid lightgray;
+}
+
+/* 태그 선택자: 문단 글자를 파란색으로 지정합니다. */
+p {
+  color: blue;
+}
+
+/* 클래스 선택자: notice 문단 글자를 초록색으로 지정합니다. */
+.notice {
+  color: green;
+}
+
+/* 아이디 선택자: important 문단 글자를 빨간색으로 지정합니다. */
+#important {
+  color: red;
+}
