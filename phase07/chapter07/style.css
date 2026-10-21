@@ -1,0 +1,170 @@
+/* 공통 레이아웃 및 box-sizing 초기화 */
+body {
+    font-family: sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 20px;
+}
+
+/* STEP 03: 전체 컨테이너를 유연하게 설정 (width와 max-width 조합) */
+.page-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* STEP 07: Header 기본값 (모바일 기준: 세로 배치) */
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.page-header h1 {
+    font-size: 20px;
+    margin: 0;
+    color: #111827;
+}
+
+.main-nav {
+    display: flex;
+    gap: 16px;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+/* STEP 08: 입력 요소가 화면 밖으로 넘치지 않도록 보호 */
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    box-sizing: border-box; /* 패딩이 너비에 포함되어 가로 스크롤 방지 */
+}
+
+/* STEP 09: 이미지 대응 패턴 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Toolbar 스타일 (Flexbox) */
+.toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.toolbar input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.toolbar button {
+    width: auto; /* 버튼은 내용물 크기에 맞게 설정 */
+    padding: 10px 16px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.toolbar button:last-child {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+}
+
+#members h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #1f2937;
+}
+
+/* --------------------------------------------------
+   Mobile First 기반 반응형 디자인 (Breakpoint 적용)
+   -------------------------------------------------- */
+
+/* STEP 04: 기본 스타일 (모바일 기준 - 1열) */
+.member-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.member-card {
+    padding: 20px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.member-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #111827;
+}
+
+.member-card p {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.card-actions button {
+    padding: 6px 12px;
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* STEP 05, 07 (Tablet 이상: 768px 이상) -> 2열 확장 및 Header 가로 배치 */
+@media (min-width: 768px) {
+    .member-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* STEP 06 (Desktop 이상: 1024px 이상) -> 3열 확장 */
+@media (min-width: 1024px) {
+    .member-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

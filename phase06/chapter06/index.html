@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원관리 페이지 레이아웃</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- STEP 02. Header를 Flexbox로 만들기 -->
+        <header class="site-header">
+            <h1>Member Management</h1>
+            <nav class="main-nav">
+                <a href="#">Home</a>
+                <a href="#members">Members</a>
+                <a href="#register">Add Member</a>
+            </nav>
+        </header>
+
+        <!-- STEP 03. 검색 Toolbar 만들기 -->
+        <div class="toolbar">
+            <input type="search" placeholder="회원 이름 검색">
+            <button type="button">검색</button>
+            <button type="button">회원 추가</button>
+        </div>
+
+        <!-- STEP 04 & 05. 회원 목록 카드 구조 및 Grid 적용 -->
+        <section id="members">
+            <h2>회원 목록</h2>
+            <div class="member-grid">
+                <article class="member-card">
+                    <h3>홍길동</h3>
+                    <p>hong@example.com</p>
+                    <p>Frontend Basic</p>
+                    <!-- STEP 06. 카드 내부 버튼은 Flexbox로 배치 -->
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+                <article class="member-card">
+                    <h3>김영희</h3>
+                    <p>kim@example.com</p>
+                    <p>Frontend Basic</p>
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+                <article class="member-card">
+                    <h3>이철수</h3>
+                    <p>lee@example.com</p>
+                    <p>Frontend Basic</p>
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>

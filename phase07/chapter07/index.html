@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <!-- STEP 02: 모바일 브라우저 화면 인식용 Viewport 설정 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원관리 반응형 페이지</title>
+    <!-- 외부 CSS 연결 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="page-container">
+
+        <!-- STEP 07: 모바일에서는 세로, 넓은 화면에서는 가로로 배치되는 Header -->
+        <header class="page-header">
+            <h1>Member Management</h1>
+            <nav class="main-nav">
+                <a href="#">Home</a>
+                <a href="#members">Members</a>
+                <a href="#register">Add Member</a>
+            </nav>
+        </header>
+
+        <!-- STEP 03, 08: 유연한 컨테이너 및 폼 입력 요소 영역 -->
+        <div class="toolbar">
+            <input type="search" placeholder="회원 이름 검색">
+            <button type="button">검색</button>
+            <button type="button">회원 추가</button>
+        </div>
+
+        <!-- STEP 04, 05, 06: Mobile First Grid 레이아웃 (1열 → 2열 → 3열) -->
+        <section id="members">
+            <h2>회원 목록</h2>
+            <div class="member-grid">
+                <article class="member-card">
+                    <h3>홍길동</h3>
+                    <p>hong@example.com</p>
+                    <p>Frontend Basic</p>
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+                <article class="member-card">
+                    <h3>김영희</h3>
+                    <p>kim@example.com</p>
+                    <p>Frontend Basic</p>
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+                <article class="member-card">
+                    <h3>이철수</h3>
+                    <p>lee@example.com</p>
+                    <p>Frontend Basic</p>
+                    <div class="card-actions">
+                        <button type="button">상세</button>
+                        <button type="button">수정</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
