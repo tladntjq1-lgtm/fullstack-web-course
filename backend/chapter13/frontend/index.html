@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 14 - Member UI</title>
+  <style>
+    body { font-family: sans-serif; max-width: 640px; margin: 40px auto; padding: 0 16px; }
+    button { padding: 8px 14px; cursor: pointer; }
+    form { display: grid; gap: 8px; margin-bottom: 24px; padding: 16px; border: 1px solid #ddd; border-radius: 8px; }
+    input { padding: 8px; }
+    .status { margin: 8px 0; color: #555; }
+    .status.error { color: #c0392b; }
+    .status.success { color: #1e8449; }
+    .env { font-size: 12px; color: #888; }
+    li { padding: 4px 0; }
+  </style>
+</head>
+<body>
+  <p id="envInfo" class="env"></p>
+
+  <h1>회원 등록</h1>
+  <form id="memberForm">
+    <input id="name" placeholder="이름" required />
+    <input id="email" type="email" placeholder="이메일" required />
+    <input id="age" type="number" placeholder="나이" min="0" required />
+    <button type="submit">회원 등록</button>
+    <p id="formStatus" class="status"></p>
+  </form>
+
+  <h1>회원 목록</h1>
+  <button id="loadBtn">회원 목록 불러오기</button>
+  <p id="status" class="status"></p>
+  <ul id="memberList"></ul>
+
+  <!-- 환경 설정을 먼저 불러온 뒤 앱 코드를 실행 -->
+  <script src="config.js"></script>
+  <script>
+    // Backend 주소는 config.js에서만 관리
+    const { API_BASE_URL, ENV } = window.APP_CONFIG;
+
+    const statusEl = document.getElementById('status');
+    const listEl = document.getElementById('memberList');
+    const formEl = document.getElementById('memberForm');
+    const formStatusEl = document.getElementById('formStatus');
+
+    document.getElementById('envInfo').textContent = `ENV: ${ENV} · API: ${API_BASE_URL}`;
+
+    // ---------- GET /members ----------
+    async function loadMembers() {
+      statusEl.className = 'status';
+      statusEl.textContent = '불러오는 중...';
+      listEl.innerHTML = '';
+
+      try {
+        const response = await fetch(`${API_BASE_URL}/members`);
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const members = await response.json();
+        console.log('[GET /members]', members);
+
+        statusEl.textContent = `총 ${members.length}명`;
+        members.forEach((m) => {
+          const li = document.createElement('li');
+          li.textContent = `#${m.member_id} ${m.name} (${m.email}, ${m.age}세)`;
+          listEl.appendChild(li);
+        });
+      } catch (error) {
+        console.error(error);
+        statusEl.className = 'status error';
+        statusEl.textContent = `요청 실패: ${error.message}`;
+      }
+    }
+
+    // ---------- POST /members ----------
+    async function createMember(member) {
+      const response = await fetch(`${API_BASE_URL}/members`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(member),
+      });
+
+      const body = await response.json();
+
+      if (!response.ok) {
+        // 422 검증 오류는 detail이 배열로 옴
+        const detail = Array.isArray(body.detail)
+          ? body.detail.map((d) => d.msg).join(', ')
+          : body.detail;
+        throw new Error(detail ?? `HTTP ${response.status}`);
+      }
+
+      return body;
+    }
+
+    formEl.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const member = {
+        name: document.getElementById('name').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        age: Number(document.getElementById('age').value),
+      };
+
+      formStatusEl.className = 'status';
+      formStatusEl.textContent = '등록 중...';
+
+      try {
+        const created = await createMember(member);
+        console.log('[POST /members]', created);
+        formStatusEl.className = 'status success';
+        formStatusEl.textContent = `등록 완료: ${created.name}`;
+        formEl.reset();
+        loadMembers();
+      } catch (error) {
+        console.error(error);
+        formStatusEl.className = 'status error';
+        formStatusEl.textContent = `등록 실패: ${error.message}`;
+      }
+    });
+
+    document.getElementById('loadBtn').addEventListener('click', loadMembers);
+    loadMembers();
+  </script>
+</body>
+</html>
