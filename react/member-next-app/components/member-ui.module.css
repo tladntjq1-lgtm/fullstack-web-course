@@ -710,3 +710,59 @@
   justify-content: flex-end;
   gap: 8px;
 }
+
+
+/* ===== 6강: 회원 상세 ===== */
+.detailCard {
+  max-width: 640px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.detailHead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.avatarLarge {
+  width: 64px;
+  height: 64px;
+  font-size: 26px;
+}
+
+.detailName {
+  font-size: 22px;
+}
+
+.detailList {
+  display: grid;
+}
+
+.detailRow {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailRow dt {
+  color: var(--text-subtle);
+  font-size: 14px;
+}
+
+.detailRow dd {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}

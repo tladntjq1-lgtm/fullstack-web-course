@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Member } from "../types/member";
 import styles from "./member-ui.module.css";
 
@@ -52,6 +53,13 @@ export default function MemberCard({
       </div>
 
       <div className={styles.cardActions}>
+        <Link
+          href={"/members/" + member.member_id}
+          className={`${styles.button} ${styles.buttonGhost} ${styles.buttonSmall}`}
+          aria-label={`${member.name} 회원 상세 보기`}
+        >
+          상세 보기
+        </Link>
         <button
           type="button"
           className={`${styles.button} ${styles.buttonSecondary} ${styles.buttonSmall}`}

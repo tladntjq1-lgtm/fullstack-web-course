@@ -72,3 +72,21 @@ export async function deleteMember(memberId: number): Promise<void> {
   // 204 No Content처럼 응답 본문이 없는 성공도 처리합니다.
   await requireOk(response);
 }
+
+export async function getMember(
+  memberId: number,
+  signal?: AbortSignal,
+): Promise<Member> {
+  const detailPath = MEMBERS_PATH.replace(/\/$/, "") + "/" + memberId;
+  const response = await fetch(apiUrl(detailPath), {
+    cache: "no-store",
+    signal,
+  });
+  await requireOk(response);
+
+  const data: unknown = await response.json();
+  if (!isMember(data)) {
+    throw new Error("회원 상세 응답이 예상한 Member 형식이 아닙니다.");
+  }
+  return data;
+}
