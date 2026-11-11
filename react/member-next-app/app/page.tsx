@@ -1,34 +1,21 @@
 import MemberWorkspace from "../components/MemberWorkspace";
-import type { Member } from "../types/member";
-
-const sampleMembers: Member[] = [
-  { member_id: 1, name: "Kim", email: "kim@example.com", age: 30 },
-  { member_id: 2, name: "Lee", email: "lee@example.com", age: 27 },
-  { member_id: 3, name: "Park", email: "park@example.com", age: 35 },
-];
+import styles from "../components/member-ui.module.css";
 
 export default function HomePage() {
   return (
-    <main
-      style={{
-        maxWidth: 880,
-        margin: "48px auto",
-        padding: "0 24px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <p style={{ color: "#2563eb", fontWeight: 700 }}>
-        Phase 03 · 03강 Props · State · Event
-      </p>
+    <main className={styles.app}>
+      <div className={styles.container}>
+        <header className={styles.pageHeader}>
+          <p className={styles.eyebrow}>Phase 03 · 05강 회원 CRUD</p>
+          <h1 className={styles.pageTitle}>회원관리 시스템</h1>
+          <p className={styles.pageDescription}>
+            FastAPI와 PostgreSQL에 연결된 회원 목록이에요. 등록·수정·삭제를 하면
+            최신 목록을 자동으로 다시 불러와요.
+          </p>
+        </header>
 
-      <h1 style={{ fontSize: 36, color: "inherit" }}>회원관리 시스템</h1>
-
-      <p style={{ color: "#475569" }}>
-        React State로 회원 검색과 입력 폼을 실습합니다.
-        실제 API 조회는 4강, DB 저장은 5강에서 진행합니다.
-      </p>
-
-      <MemberWorkspace initialMembers={sampleMembers} />
+        <MemberWorkspace />
+      </div>
     </main>
   );
 }
