@@ -31,6 +31,7 @@ def create_member_service(db: Session, payload: MemberCreate):
             payload.name,
             str(payload.email),
             payload.age,
+            payload.gender,
         )
     except IntegrityError:
         raise HTTPException(status_code=409, detail="Email already exists")

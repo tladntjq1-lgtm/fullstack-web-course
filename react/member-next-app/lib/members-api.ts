@@ -1,9 +1,10 @@
 import type { Member } from "../types/member";
+import { isGender } from "./gender";
 
 // 실제 Swagger 경로에 맞춥니다. 예: "/members/" 또는 "/api/v1/members"
 const MEMBERS_PATH = "/members";
 
-export type MemberPayload = Pick<Member, "name" | "email" | "age">;
+export type MemberPayload = Pick<Member, "name" | "email" | "age" | "gender">;
 
 function apiUrl(path: string): string {
   const base = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -20,7 +21,8 @@ function isMember(value: unknown): value is Member {
     typeof item.member_id === "number" &&
     typeof item.name === "string" &&
     typeof item.email === "string" &&
-    typeof item.age === "number"
+    typeof item.age === "number" &&
+    (item.gender === null || isGender(item.gender))
   );
 }
 

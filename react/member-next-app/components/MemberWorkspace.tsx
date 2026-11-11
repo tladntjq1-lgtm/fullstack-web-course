@@ -10,7 +10,8 @@ import {
   getMembers,
   updateMember,
 } from "../lib/members-api";
-import type { Member } from "../types/member";
+import { GENDER_OPTIONS, isGender } from "../lib/gender";
+import type { Gender, Member } from "../types/member";
 import styles from "./member-ui.module.css";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -52,6 +53,7 @@ export default function MemberWorkspace() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
+  const [gender, setGender] = useState<Gender | "">("");
   const [touched, setTouched] = useState<Touched>(UNTOUCHED);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [busy, setBusy] = useState(false);
@@ -145,6 +147,7 @@ export default function MemberWorkspace() {
     setName("");
     setEmail("");
     setAge("");
+    setGender("");
     setTouched(UNTOUCHED);
   }
 
@@ -153,6 +156,7 @@ export default function MemberWorkspace() {
     setName(member.name);
     setEmail(member.email);
     setAge(String(member.age));
+    setGender(member.gender ?? "");
     setTouched(UNTOUCHED);
     setToast(null);
     // 수정 폼으로 이동하고 이름 칸에 커서를 둡니다.
@@ -178,7 +182,12 @@ export default function MemberWorkspace() {
     const action = editingId === null ? "등록" : "수정";
 
     try {
-      const payload = { name: trimmedName, email: trimmedEmail, age: ageNumber };
+      const payload = {
+        name: trimmedName,
+        email: trimmedEmail,
+        age: ageNumber,
+        gender: gender === "" ? null : gender,
+      };
       if (editingId === null) {
         await createMember(payload);
       } else {
@@ -452,6 +461,28 @@ export default function MemberWorkspace() {
                   {ageError}
                 </p>
               )}
+            </div>
+
+            <div className={styles.field}>
+              <label htmlFor="member-gender" className={styles.label}>
+                성별 <span className={styles.optional}>(선택)</span>
+              </label>
+              <select
+                id="member-gender"
+                className={styles.input}
+                value={gender}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setGender(isGender(value) ? value : "");
+                }}
+              >
+                <option value="">선택 안 함</option>
+                {GENDER_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className={styles.formActions}>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getMember } from "../lib/members-api";
+import { genderLabel } from "../lib/gender";
 import type { Member } from "../types/member";
 import styles from "./member-ui.module.css";
 
@@ -128,7 +129,11 @@ export default function MemberDetail({ memberIdText }: MemberDetailProps) {
             </div>
             <div className={styles.detailRow}>
               <dt>나이</dt>
-              <dd>{member.age}세</dd>
+                            <dd>{member.age}세</dd>
+            </div>
+            <div className={styles.detailRow}>
+              <dt>성별</dt>
+              <dd>{genderLabel(member.gender)}</dd>
             </div>
           </dl>
         </article>

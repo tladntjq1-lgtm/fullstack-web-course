@@ -24,4 +24,7 @@ class Member(Base):
         Integer,
         nullable=False,
     )
-    
+    gender: Mapped[str | None] = mapped_column(
+        String(10),
+        nullable=True,
+    )

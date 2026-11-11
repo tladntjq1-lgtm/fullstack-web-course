@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Member } from "../types/member";
+import { genderLabel } from "../lib/gender";
 import styles from "./member-ui.module.css";
 
 type MemberCardProps = {
@@ -46,7 +47,9 @@ export default function MemberCard({
         </div>
         <p className={styles.cardEmail}>{member.email}</p>
         <p className={styles.cardMeta}>
-          <span>나이 {member.age}세</span>
+                    <span>나이 {member.age}세</span>
+          <span aria-hidden="true">·</span>
+          <span>{genderLabel(member.gender)}</span>
           <span aria-hidden="true">·</span>
           <span>ID {member.member_id}</span>
         </p>

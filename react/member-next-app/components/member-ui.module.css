@@ -766,3 +766,11 @@
   font-weight: 600;
   overflow-wrap: anywhere;
 }
+
+
+/* ===== 성별 (선택 항목 표시) ===== */
+.optional {
+  color: var(--text-subtle);
+  font-weight: 400;
+  font-size: 13px;
+}

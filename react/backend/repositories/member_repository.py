@@ -20,8 +20,14 @@ def find_by_email(db: Session, email: str):
     return db.scalar(stmt)
 
 
-def create_member(db: Session, name: str, email: str, age: int):
-    member = Member(name=name, email=email, age=age)
+def create_member(
+    db: Session,
+    name: str,
+    email: str,
+    age: int,
+    gender: str | None = None,
+):
+    member = Member(name=name, email=email, age=age, gender=gender)
 
     try:
         db.add(member)
@@ -40,6 +46,7 @@ def update_member(db: Session, member: Member, payload: MemberUpdate):
     member.name = payload.name
     member.email = str(payload.email)
     member.age = payload.age
+    member.gender = payload.gender
 
     try:
         db.commit()
